@@ -135,11 +135,11 @@ function RoadmapsPage() {
 
   // Get responsive card dimensions
   const getResponsiveDimensions = (width: number) => {
-    if (width < 640) { // Mobile
-      return { width: "320px", height: "520px", offset: "0px", scale: 0.85 };
-    } else if (width < 768) { // Tablet
-      return { width: "380px", height: "540px", offset: "200px", scale: 0.82 };
-    } else { // Desktop
+    if (width < 640) { // Mobile (<640px)
+      return { width: "300px", height: "480px", offset: "0px", scale: 0.85 };
+    } else if (width < 1024) { // Tablet (640-1024px)
+      return { width: "380px", height: "520px", offset: "250px", scale: 0.82 };
+    } else { // Desktop (>1024px)
       return { width: "460px", height: "580px", offset: "300px", scale: 0.82 };
     }
   };
@@ -173,7 +173,7 @@ function RoadmapsPage() {
       <section className="max-w-7xl mx-auto px-4 py-8">
         <div 
           className="relative flex items-center justify-center cursor-grab active:cursor-grabbing" 
-          style={{ minHeight: windowWidth < 640 ? "580px" : "620px" }}
+          style={{ minHeight: windowWidth < 640 ? "540px" : windowWidth < 1024 ? "580px" : "640px" }}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -252,7 +252,7 @@ function RoadmapsPage() {
                   {/* top sheen */}
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.06] via-transparent to-transparent" />
 
-                  <div className={`relative h-full flex flex-col ${windowWidth < 640 ? "p-5" : windowWidth < 768 ? "p-6" : "p-9"}`}>
+                  <div className={`relative h-full flex flex-col ${windowWidth < 640 ? "p-4" : windowWidth < 1024 ? "p-6" : "p-9"}`}>
                     {/* scrollable middle content — keeps footer/CTA pinned to the same spot on every card */}
                     <div className="flex-1 min-h-0 flex flex-col overflow-y-auto pr-1 [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
                       {/* monogram - responsive sizing based on screen width */}
@@ -260,8 +260,8 @@ function RoadmapsPage() {
                         <span
                           className={`font-bold tracking-tight text-white/95 select-none leading-none ${
                             isActive 
-                              ? windowWidth < 640 ? "text-[60px]" : windowWidth < 768 ? "text-[75px]" : "text-[90px]"
-                              : windowWidth < 640 ? "text-[70px]" : windowWidth < 768 ? "text-[95px]" : "text-[110px]"
+                              ? windowWidth < 640 ? "text-[45px]" : windowWidth < 1024 ? "text-[75px]" : "text-[90px]"
+                              : windowWidth < 640 ? "text-[50px]" : windowWidth < 1024 ? "text-[95px]" : "text-[110px]"
                           }`}
                         >
                           {codeFor(roadmap)}
@@ -271,29 +271,29 @@ function RoadmapsPage() {
                       {/* title - using getDisplayTitle for override */}
                       <h2 className={`font-semibold text-white mb-1 ${
                         isActive 
-                          ? windowWidth < 640 ? "text-xl" : windowWidth < 768 ? "text-2xl" : "text-2xl"
-                          : windowWidth < 640 ? "text-base" : "text-lg"
+                          ? windowWidth < 640 ? "text-lg" : windowWidth < 1024 ? "text-xl" : "text-2xl"
+                          : windowWidth < 640 ? "text-sm" : "text-base"
                       }`}>
                         {getDisplayTitle(roadmap)}
                       </h2>
-                      <p className="text-sm text-white/60 mb-4">{roadmap.tagline}</p>
+                      <p className={`text-white/60 mb-4 ${windowWidth < 640 ? "text-xs" : "text-sm"}`}>{roadmap.tagline}</p>
 
                       {/* overview + skills + stages — active card only */}
                       {isActive && (
                         <>
-                          <p className="text-sm text-white/60 mb-4 leading-relaxed line-clamp-4">{roadmap.overview}</p>
+                          <p className={`text-white/60 mb-4 leading-relaxed line-clamp-4 ${windowWidth < 640 ? "text-xs" : "text-sm"}`}>{roadmap.overview}</p>
 
                           <div className="flex flex-wrap gap-1.5 mb-4">
                             {roadmap.skills.slice(0, 5).map((skill) => (
                               <span
                                 key={skill}
-                                className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/60"
+                                className={`font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/60 ${windowWidth < 640 ? "text-[9px]" : "text-[10px]"}`}
                               >
                                 {skill}
                               </span>
                             ))}
                             {roadmap.skills.length > 5 && (
-                              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/60">
+                              <span className={`font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/60 ${windowWidth < 640 ? "text-[9px]" : "text-[10px]"}`}>
                                 +{roadmap.skills.length - 5}
                               </span>
                             )}
@@ -303,12 +303,12 @@ function RoadmapsPage() {
                     </div>
 
                     {/* stats footer — pinned to the bottom of every card */}
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-white/60 pt-4 mt-4 border-t border-white/10">
+                    <div className={`flex flex-wrap items-center gap-4 text-white/60 pt-4 mt-4 border-t border-white/10 ${windowWidth < 640 ? "text-[10px]" : "text-xs"}`}>
                       <span className="inline-flex items-center gap-1.5 font-mono">
-                        <Clock className="size-3.5" /> {roadmap.estimatedTime}
+                        <Clock className={windowWidth < 640 ? "size-3" : "size-3.5"} /> {roadmap.estimatedTime}
                       </span>
                       <span className="inline-flex items-center gap-1.5 font-mono">
-                        <Signal className="size-3.5" /> {roadmap.difficulty}
+                        <Signal className={windowWidth < 640 ? "size-3" : "size-3.5"} /> {roadmap.difficulty}
                       </span>
                     </div>
 
@@ -316,7 +316,9 @@ function RoadmapsPage() {
                     {isActive && (
                       <Link
                         to={getRoutePath(roadmap.slug)}
-                        className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white text-black hover:bg-white/90 transition-colors text-sm font-medium"
+                        className={`mt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-white text-black hover:bg-white/90 transition-colors font-medium ${
+                          windowWidth < 640 ? "px-3 py-2 text-xs" : "px-4 py-2.5 text-sm"
+                        }`}
                       >
                         Open Roadmap
                         <ArrowRight className="size-4" />
@@ -332,20 +334,20 @@ function RoadmapsPage() {
           <button
             onClick={goToPrevious}
             className={`absolute top-1/2 -translate-y-1/2 z-40 rounded-full border border-hairline bg-black/60 backdrop-blur flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-white/50 transition-colors ${
-              windowWidth < 640 ? "left-2 size-12" : "left-0 size-11"
+              windowWidth < 640 ? "left-[15px] size-10" : "left-0 size-11"
             }`}
             aria-label="Previous roadmap"
           >
-            <ChevronLeft className={windowWidth < 640 ? "size-6" : "size-5"} />
+            <ChevronLeft className={windowWidth < 640 ? "size-5" : "size-5"} />
           </button>
           <button
             onClick={goToNext}
             className={`absolute top-1/2 -translate-y-1/2 z-40 rounded-full border border-hairline bg-black/60 backdrop-blur flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-white/50 transition-colors ${
-              windowWidth < 640 ? "right-2 size-12" : "right-0 size-11"
+              windowWidth < 640 ? "right-[15px] size-10" : "right-0 size-11"
             }`}
             aria-label="Next roadmap"
           >
-            <ChevronRight className={windowWidth < 640 ? "size-6" : "size-5"} />
+            <ChevronRight className={windowWidth < 640 ? "size-5" : "size-5"} />
           </button>
         </div>
 
