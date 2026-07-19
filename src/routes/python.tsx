@@ -23,6 +23,7 @@ import {
   Brain,
   Notebook,
   FileSearch,
+  BookOpen,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -953,7 +954,7 @@ function PythonRoadmap() {
       </Section>
 
       {/* Resources */}
-      <Section id="resources" eyebrow="Level Up" eyebrowIcon={BookOpen} title="Python Toolkit & Resources">
+      <Section id="resources" eyebrow="Level Up" title="Python Learning Resources">
         <div className="grid md:grid-cols-3 gap-4">
           {resources.map((r) => (
             <Card key={r.h}>

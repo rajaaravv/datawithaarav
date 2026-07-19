@@ -35,6 +35,7 @@ import {
   TrendingUp,
   Layers,
   Palette,
+  BookOpen,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -952,7 +953,7 @@ function BIRoadmap() {
       </Section>
 
       {/* Resources */}
-      <Section id="resources" eyebrow="Level Up" eyebrowIcon={BookOpen} title="Power BI Toolkit & Resources">
+      <Section id="resources" eyebrow="Level Up" title="Power BI Learning Resources">
         <div className="grid md:grid-cols-3 gap-4">
           {resources.map((r) => (
             <Card key={r.h}>
