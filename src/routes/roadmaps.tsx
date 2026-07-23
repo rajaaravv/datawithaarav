@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Clock, Signal } from "lucide-react";
+import { ArrowRight, Clock, Signal, Map } from "lucide-react";
 import { roadmaps } from "@/lib/data";
 import { PageShell } from "@/components/site/PageShell";
 
@@ -15,23 +15,29 @@ export const Route = createFileRoute("/roadmaps")({
   component: RoadmapsPage,
 });
 
-// ---- monochrome palette ----------------------------------------------
-const PALETTE = {
-  slate: "from-neutral-900 via-neutral-950 to-black",
-  charcoal: "from-zinc-900 via-black to-black",
-  graphite: "from-neutral-800 via-neutral-950 to-black",
-  ink: "from-neutral-950 via-black to-black",
-} as const;
-const PALETTE_KEYS = Object.keys(PALETTE) as (keyof typeof PALETTE)[];
+// Enhanced gradient palettes with subtle brand accents
+const CARD_GRADIENTS = [
+  "from-slate-900/90 via-zinc-950/95 to-black",
+  "from-zinc-900/90 via-neutral-950/95 to-black", 
+  "from-neutral-800/90 via-stone-950/95 to-black",
+  "from-stone-900/90 via-zinc-950/95 to-black",
+  "from-gray-900/90 via-neutral-950/95 to-black",
+  "from-zinc-800/90 via-stone-950/95 to-black",
+  "from-slate-800/90 via-zinc-950/95 to-black",
+];
 
-function toneFor(roadmap: (typeof roadmaps)[number], index: number) {
-  const key = (roadmap as any).tone as keyof typeof PALETTE | undefined;
-  return PALETTE[key ?? PALETTE_KEYS[index % PALETTE_KEYS.length]];
-}
+// Glow colors for each card - subtle brand-aligned glows
+const GLOW_COLORS = [
+  "rgba(255, 255, 255, 0.15)",
+  "rgba(200, 200, 200, 0.12)",
+  "rgba(180, 180, 180, 0.14)",
+  "rgba(220, 220, 220, 0.13)",
+  "rgba(190, 190, 190, 0.15)",
+  "rgba(210, 210, 210, 0.12)",
+  "rgba(230, 230, 230, 0.14)",
+];
 
 function codeFor(roadmap: (typeof roadmaps)[number]) {
-  const explicit = (roadmap as any).code as string | undefined;
-  if (explicit) return explicit.toUpperCase();
   const words = roadmap.title.trim().split(/\s+/).filter(Boolean);
   if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
   return words.slice(0, 2).map((w) => w[0]).join("").toUpperCase();
@@ -74,18 +80,25 @@ function RoadmapsPage() {
             <Link
               key={roadmap.slug}
               to={getRoutePath(roadmap.slug)}
-              className="group block rounded-2xl border border-hairline overflow-hidden bg-gradient-to-b hover:border-white/30 hover:-translate-y-1 transition-all duration-300"
-              style={{
-                background: `linear-gradient(to bottom, ${toneFor(roadmap, index).replace('from-', '').replace('via-', '').replace('to-', '')})`,
-              }}
+              className="group block"
             >
-              <div className={`relative rounded-2xl border overflow-hidden flex flex-col bg-gradient-to-b ${toneFor(roadmap, index)} border-white/10 hover:border-white/30 transition-all duration-300 h-full`}>
+              <div 
+                className="relative overflow-hidden rounded-2xl glass-card p-5 sm:p-6 md:p-8 flex flex-col h-full group-hover:scale-[1.02] group-hover:border-white/30 hover:-translate-y-1 transition-all duration-300"
+                style={{
+                  boxShadow: `0 0 60px -20px ${GLOW_COLORS[index % GLOW_COLORS.length]}`,
+                }}
+              >
+                {/* Ambient glow */}
+                <div 
+                  className="pointer-events-none absolute -top-16 -right-16 w-40 h-40 rounded-full blur-[50px] opacity-30 group-hover:opacity-60 transition-opacity duration-500"
+                  style={{ backgroundColor: GLOW_COLORS[index % GLOW_COLORS.length] }}
+                />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.06] via-transparent to-transparent" />
                 
-                <div className="relative p-5 sm:p-6 md:p-8 flex flex-col h-full">
+                <div className="relative z-10 flex flex-col h-full">
                   {/* Monogram */}
                   <div className="flex items-center justify-center mb-3 sm:mb-4">
-                    <span className="font-bold tracking-tight text-white/95 select-none leading-none text-5xl sm:text-6xl md:text-7xl">
+                    <span className="font-black tracking-tight text-white/95 select-none leading-none text-5xl sm:text-6xl md:text-7xl bg-gradient-to-br from-white to-white/30 bg-clip-text text-transparent">
                       {codeFor(roadmap)}
                     </span>
                   </div>
@@ -98,7 +111,7 @@ function RoadmapsPage() {
                   <p className="text-sm text-white/60 mb-3 sm:mb-4 line-clamp-2">{roadmap.tagline}</p>
 
                   {/* Overview */}
-                  <p className="text-xs sm:text-sm text-white/60 mb-3 sm:mb-4 leading-relaxed line-clamp-3">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 leading-relaxed line-clamp-3">
                     {roadmap.overview}
                   </p>
 
@@ -107,30 +120,30 @@ function RoadmapsPage() {
                     {roadmap.skills.slice(0, 4).map((skill) => (
                       <span
                         key={skill}
-                        className="text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/60"
+                        className="text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/60"
                       >
                         {skill}
                       </span>
                     ))}
                     {roadmap.skills.length > 4 && (
-                      <span className="text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/60">
+                      <span className="text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/60">
                         +{roadmap.skills.length - 4}
                       </span>
                     )}
                   </div>
 
                   {/* Stats footer */}
-                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[10px] sm:text-xs text-white/60 pt-3 sm:pt-4 mt-auto border-t border-white/10">
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[10px] sm:text-xs text-muted-foreground pt-3 sm:pt-4 mt-auto border-t border-white/10">
                     <span className="inline-flex items-center gap-1.5 font-mono">
                       <Clock className="size-3 sm:size-3.5" /> {roadmap.estimatedTime}
                     </span>
                     <span className="inline-flex items-center gap-1.5 font-mono">
-                      <Signal className="size-3 sm:size-3.5" /> {roadmap.difficulty}
+                      <Signal className="size-3 sm:size-3.5" /> {roadmap.stages.length} stages
                     </span>
                   </div>
 
                   {/* CTA */}
-                  <div className="mt-3 sm:mt-4 w-full inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors text-xs sm:text-sm font-medium border border-white/10 hover:border-white/30">
+                  <div className="mt-3 sm:mt-4 w-full inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors text-xs sm:text-sm font-medium border border-white/10 hover:border-white/30 group-hover:scale-[1.02]">
                     Open Roadmap
                     <ArrowRight className="size-3 sm:size-4 group-hover:translate-x-1 transition-transform" />
                   </div>
