@@ -290,6 +290,87 @@ export const projects: Project[] = [
     description: "Build a fully interactive HR dashboard using only Excel.",
     skills: ["Pivots", "Charts", "Slicers"],
   },
+  // Excel roadmap additional projects
+  {
+    name: "Employee Directory & Tenure Analysis",
+    category: "Excel",
+    difficulty: "Beginner",
+    tools: ["Excel"],
+    description: "DATEDIF for tenure, VLOOKUP for department, age bands using IFS, conditional formatting, PivotTable by department.",
+    skills: ["Date Functions", "Lookup Formulas", "PivotTables", "Conditional Formatting"]
+  },
+  {
+    name: "Sales Performance Tracker (Monthly)",
+    category: "Excel",
+    difficulty: "Beginner",
+    tools: ["Excel"],
+    description: "12-month Tables; SUMIFS by region & product; RAG on target; sparklines per row; automated date header.",
+    skills: ["SUMIFS", "Tables", "Sparklines", "Conditional Formatting"]
+  },
+  {
+    name: "Invoice Aging Report",
+    category: "Excel",
+    difficulty: "Beginner",
+    tools: ["Excel"],
+    description: "DATEDIF for overdue, IFS for aging buckets, SUMIFS by bucket, traffic-light conditional formatting.",
+    skills: ["Date Functions", "Logical Formulas", "Aggregation", "Conditional Formatting"]
+  },
+  {
+    name: "Interactive Sales KPI Dashboard",
+    category: "Excel",
+    difficulty: "Intermediate",
+    tools: ["Excel"],
+    description: "Revenue YTD/MTD vs target KPI cards; trend chart; region breakdown; dropdown driving all charts. No VBA.",
+    skills: ["Dashboards", "Charts", "Form Controls", "PivotTables"]
+  },
+  {
+    name: "Budget vs Actual Financial Report",
+    category: "Excel",
+    difficulty: "Intermediate",
+    tools: ["Excel"],
+    description: "Multi-sheet: Assumptions → Calculations → Monthly P&L → Dashboard. Variance with RAG. Scenario Manager.",
+    skills: ["Financial Modeling", "Scenario Manager", "Dashboards", "Variance Analysis"]
+  },
+  {
+    name: "Power Query Multi-File Consolidation",
+    category: "Excel",
+    difficulty: "Intermediate",
+    tools: ["Excel"],
+    description: "12 monthly CSVs → PQ append → clean → load → PivotTable dashboard. One-click refresh.",
+    skills: ["Power Query", "ETL", "Automation", "PivotTables"]
+  },
+  {
+    name: "Customer RFM Segmentation Model",
+    category: "Excel",
+    difficulty: "Advanced",
+    tools: ["Excel"],
+    description: "Transactions → PQ clean → DATEDIF recency, COUNTIFS frequency, SUMIFS monetary → PERCENTRANK → segments.",
+    skills: ["Data Cleaning", "Segmentation", "Statistical Functions", "Customer Analytics"]
+  },
+  {
+    name: "Automated Monthly MIS Report",
+    category: "Excel",
+    difficulty: "Advanced",
+    tools: ["Excel", "VBA"],
+    description: "PQ import → PivotTable refresh → VBA: format + timestamp + PDF export. One-button monthly cycle.",
+    skills: ["Power Query", "VBA", "Automation", "Reporting"]
+  },
+  {
+    name: "Power Pivot Multi-Table Analytics",
+    category: "Excel",
+    difficulty: "Advanced",
+    tools: ["Excel", "Power Pivot"],
+    description: "Star schema: fact (sales) + dims (customers, products, calendar). 15 DAX measures + dashboard.",
+    skills: ["Power Pivot", "Data Modeling", "DAX", "Analytics"]
+  },
+  {
+    name: "5-Year Financial Forecast Model",
+    category: "Excel",
+    difficulty: "Advanced",
+    tools: ["Excel"],
+    description: "Inputs → Calcs → P&L/CF/BS → Dashboard. Sensitivity with 2-way Data Table. Scenario Manager. NPV/IRR.",
+    skills: ["Financial Modeling", "Forecasting", "Scenario Manager", "Advanced Formulas"]
+  },
 ];
 
 export const projectCategories = ["All", "Probability & Statistics", "Excel", "SQL", "Python & Libraries", "Visualization Tools", "End-to-End"] as const;

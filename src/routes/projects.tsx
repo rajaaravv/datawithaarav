@@ -16,18 +16,11 @@ export const Route = createFileRoute("/projects")({
   component: ProjectsPage,
 });
 
-const difficultyColor: Record<string, string> = {
-  Beginner: "text-white border-white/30 bg-white/10",
-  Intermediate: "text-gray-300 border-gray-300/30 bg-gray-300/10",
-  Advanced: "text-gray-500 border-gray-500/30 bg-gray-500/10",
-};
-
 function ProjectsPage() {
   const [cat, setCat] = useState<string>("All");
-  const difficultyOrder = { Beginner: 0, Intermediate: 1, Advanced: 2 };
   const filtered = cat === "All" 
-    ? [...projects].sort((a, b) => difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]) 
-    : [...projects].filter((p) => p.category === cat).sort((a, b) => difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]);
+    ? [...projects]
+    : [...projects].filter((p) => p.category === cat);
 
   return (
     <>
@@ -61,9 +54,6 @@ function ProjectsPage() {
             >
               <div className="flex items-start justify-between gap-3 mb-3">
                 <h3 className="text-foreground font-medium leading-snug">{p.name}</h3>
-                <span className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border shrink-0 ${difficultyColor[p.difficulty]}`}>
-                  {p.difficulty}
-                </span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{p.description}</p>
               <div className="flex flex-wrap gap-1.5 mb-4">

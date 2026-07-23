@@ -504,19 +504,7 @@ const learningPlan = [
   },
 ];
 
-const projects = [
-  { code: "P1", tier: "Beginner", h: "3–4hrs", t: "Employee Directory & Tenure Analysis", d: "DATEDIF for tenure, VLOOKUP for department, age bands using IFS, conditional formatting, PivotTable by department." },
-  { code: "P2", tier: "Beginner", h: "4–5hrs", t: "Sales Performance Tracker (Monthly)", d: "12-month Tables; SUMIFS by region & product; RAG on target; sparklines per row; automated date header." },
-  { code: "P3", tier: "Beginner", h: "3–4hrs", t: "Invoice Aging Report", d: "DATEDIF for overdue, IFS for aging buckets, SUMIFS by bucket, traffic-light conditional formatting." },
-  { code: "P4", tier: "Intermediate", h: "6–8hrs", t: "Interactive Sales KPI Dashboard", d: "Revenue YTD/MTD vs target KPI cards; trend chart; region breakdown; dropdown driving all charts. No VBA." },
-  { code: "P5", tier: "Intermediate", h: "5–7hrs", t: "HR Analytics Dashboard", d: "Headcount waterfall, attrition by dept, tenure histogram, gender/age breakdown. Dynamic slicer for dept view." },
-  { code: "P6", tier: "Intermediate", h: "7–9hrs", t: "Budget vs Actual Financial Report", d: "Multi-sheet: Assumptions → Calculations → Monthly P&L → Dashboard. Variance with RAG. Scenario Manager." },
-  { code: "P7", tier: "Intermediate", h: "5–6hrs", t: "Power Query Multi-File Consolidation", d: "12 monthly CSVs → PQ append → clean → load → PivotTable dashboard. One-click refresh." },
-  { code: "P8", tier: "Advanced", h: "8–10hrs", t: "Customer RFM Segmentation Model", d: "Transactions → PQ clean → DATEDIF recency, COUNTIFS frequency, SUMIFS monetary → PERCENTRANK → segments." },
-  { code: "P9", tier: "Advanced", h: "8–10hrs", t: "Automated Monthly MIS Report", d: "PQ import → PivotTable refresh → VBA: format + timestamp + PDF export. One-button monthly cycle." },
-  { code: "P10", tier: "Advanced", h: "10–12hrs", t: "Power Pivot Multi-Table Analytics", d: "Star schema: fact (sales) + dims (customers, products, calendar). 15 DAX measures + dashboard." },
-  { code: "P11", tier: "Advanced", h: "12–15hrs", t: "5-Year Financial Forecast Model", d: "Inputs → Calcs → P&L/CF/BS → Dashboard. Sensitivity with 2-way Data Table. Scenario Manager. NPV/IRR." },
-];
+
 
 const shortcuts = [
   { group: "Navigation", items: ["Ctrl+Home — A1", "Ctrl+End — last cell", "Ctrl+Arrow — jump to edge", "Ctrl+Shift+Arrow — select to edge", "Ctrl+Space — entire column", "Shift+Space — entire row", "Ctrl+A — select all", "Ctrl+PgUp/Dn — switch sheets"] },
@@ -900,26 +888,7 @@ function ExcelRoadmap() {
         </div>
       </Section>
 
-      {/* Projects */}
-      <Section id="projects" eyebrow="Portfolio" eyebrowIcon={Hammer} title="Hands-On Projects & Portfolio Ideas" subtitle="Build these to prove real-world Excel mastery. Each covers multiple topic areas.">
-        <div className="grid md:grid-cols-2 gap-4">
-          {projects.map((p) => (
-            <Card key={p.code}>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-mono text-brand">{p.code}</span>
-                <Badge className={p.tier === "Beginner" ? diffStyles.Easy : p.tier === "Intermediate" ? diffStyles.Medium : diffStyles.Hard}>
-                  {p.tier}
-                </Badge>
-                <Badge className="bg-surface-2 text-muted-foreground border-hairline">
-                  <Clock className="size-3" /> {p.h}
-                </Badge>
-              </div>
-              <h3 className="font-medium text-foreground mb-2">{p.t}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{p.d}</p>
-            </Card>
-          ))}
-        </div>
-      </Section>
+
 
       {/* Shortcuts */}
       <Section id="shortcuts" eyebrow="Speed" eyebrowIcon={Zap} title="Top Excel Shortcuts Every Analyst Should Know" subtitle="Shortcut fluency signals experience. Practice these until they're muscle memory.">

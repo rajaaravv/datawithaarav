@@ -137,9 +137,6 @@ function RoadmapsPage() {
                     <span className="inline-flex items-center gap-1.5 font-mono">
                       <Clock className="size-3 sm:size-3.5" /> {roadmap.estimatedTime}
                     </span>
-                    <span className="inline-flex items-center gap-1.5 font-mono">
-                      <Signal className="size-3 sm:size-3.5" /> {roadmap.stages.length} stages
-                    </span>
                   </div>
 
                   {/* CTA */}
